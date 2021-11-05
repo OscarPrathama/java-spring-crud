@@ -29,15 +29,17 @@
 								<tr>
 									<th>Name</th>
 									<th>Email</th>
+									<th>Created at</th>
 									<th>Action</th>
 								</tr>
 								<tr th:each="user : ${users}">
 									<td th:text="${user.name}"></td>
 									<td th:text="${user.email}"></td>
+									<td th:text="${user.created_at}"></td>
 									<td>
-										<a href="#" class="text-decoration-none me-2">View</a>
-										<a href="#" class="text-decoration-none me-2">Edit</a>
-										<a href="#" class="text-decoration-none me-2">Delete</a>
+										<a th:href="@{/users/view/{id}(id=${user.id})}" class="text-decoration-none me-2">View</a>
+										<a th:href="@{/users/edit/{id}(id=${user.id})}" class="text-decoration-none me-2">Edit</a>
+										<a th:href="@{/users/delete/{id}(id=${user.id})}" class="text-decoration-none me-2">Delete</a>
 									</td>
 								</tr>
 							</table>
