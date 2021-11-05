@@ -1,17 +1,19 @@
 package com.cruds.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.util.Date;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(
+    name = "users",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "user_email_unique", columnNames = "email")
+    }
+)
 public class User {
     
     @Id // specifies the primary key of an entity
@@ -21,7 +23,7 @@ public class User {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "email", nullable = false, length = 100, unique = true)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
     @Column(name = "email_verified_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -33,11 +35,15 @@ public class User {
     @Column(name = "remember_token", length = 100)
     private String remember_token;
 
+    @CreationTimestamp
     @Basic(optional = false)
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Date created_at;
 
-    @Column(name = "updated_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updated_at;
 
     public Long getId() {
@@ -103,6 +109,4 @@ public class User {
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
     }
-
-    
 }

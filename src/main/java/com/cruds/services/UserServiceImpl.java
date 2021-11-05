@@ -1,6 +1,7 @@
 package com.cruds.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cruds.models.User;
 import com.cruds.repositories.UserRepository;
@@ -22,6 +23,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user){
         this.userRepository.save(user);
+    }
+
+    @Override
+    public User getUserById(long id){
+        Optional<User> optional = userRepository.findById(id);
+        User user = null;
+        if (optional.isPresent()){
+            user = optional.get();
+        }else{
+            throw new RuntimeException("User with id : "+id+" not found");
+        }
+
+        return user;
+    }
+
+    @Override
+    public void deleteUserById(long id){
+        this.userRepository.deleteById(id);
     }
 
 }
