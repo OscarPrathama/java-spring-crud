@@ -9,9 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "users")
+@Table(
+    name = "users",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "user_email_unique", columnNames = "email")
+    }
+)
 public class User {
     
     @Id // specifies the primary key of an entity
@@ -21,7 +27,7 @@ public class User {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "email", nullable = false, length = 100, unique = true)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
     @Column(name = "email_verified_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -104,5 +110,13 @@ public class User {
         this.updated_at = updated_at;
     }
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User() {
+    }
     
 }

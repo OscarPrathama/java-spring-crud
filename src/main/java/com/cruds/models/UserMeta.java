@@ -32,8 +32,14 @@ public class UserMeta {
     @Column(name = "country", length = 100)
     private String c_country;
 
+    @Column(name = "age", length = 2)
+    private Integer d_age;
+
+    @Column(name = "address", columnDefinition = "TEXT")
+    private String Address;
+
     @Column(name = "image")
-    private String d_image;
+    private String e_image;
 
     public String getId() {
         return id;
@@ -67,12 +73,21 @@ public class UserMeta {
         this.c_country = c_country;
     }
 
-    public String getD_image() {
-        return d_image;
+    public Integer getD_age() {
+        return d_age;
     }
 
-    public void setD_image(String d_image) {
-        this.d_image = d_image;
+    public void setD_age(Integer d_age) {
+        this.d_age = d_age;
     }
+
+    public String getE_image() {
+        return e_image;
+    }
+
+    public void setE_image(String e_image) {
+        this.e_image = e_image;
+    }
+
 
 }
